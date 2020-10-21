@@ -11,7 +11,7 @@
   crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body style="background-color: cornsilk;">
     <h1>Forma za manipulaciju sa API-em</h1>
 
     <!-- Radio button grupa za odabir tipa tabele iz baze koji želimo da menjamo -->
@@ -288,9 +288,68 @@
                     break;
                 case "put":
                     //kod za bonus poene
+                    if(tabela=="radio_novosti"){
+                        var values={
+                            "id":$("#id_novosti").val() ,
+                            "novi_naslov": $("#naslov_novosti_put").val(),
+                            "novi_tekst":$("#tekst_novosti_put").val(),
+                            "kategorija_id": parseInt($("#kategorija_odabir").val())
+                        };
+                        console.log(values);
+                    $.ajax({
+                        url:'http://localhost:8080/rest/rest/kategorije',
+                        type: 'PUT',
+                        
+                        success: function(data){
+                            alert("odgovor od servera>"+data['poruka']);
+                        }
+                    });
+                    }else{
+                        var values={
+                            "nov_naziv_kategorije":$("input[name=kategorija_naziv_put]").val(),
+                            "id":$("input[id_kategorije]").val()
+                        };
+                        console.log(values);
+                    $.ajax({
+                        url:'http://localhost:8080/rest/rest/kategorije',
+                        type: 'PUT',
+                        success: function(data){
+                            alert("odgovor od servera>"+data['poruka']);
+                        }
+                    });
+                    }
                     break;
                 case "delete":
                     //kod za bonus poene
+                    if(tabela=="radio_novosti"){
+                        var values={
+                            
+                            "brisanje":$("#brisanje").val()
+                        };
+                        console.log(values);
+                    $.ajax({
+                        url:'http://localhost:8080/rest/rest/kategorije',
+                        type: 'DELETE',
+                        
+                        success: function(data){
+                            alert("odgovor od servera>"+data['poruka']);
+                        }
+                    });
+                    }else{
+                        var values={
+                            "brisanje":$("#brisanje").val()
+                        };
+                        console.log(values);
+                    $.ajax({
+                        url:'http://localhost:8080/rest/rest/kategorije',
+                        type: 'DELETE',
+                        
+                        success: function(data){
+                            $("values").remove();
+                            alert("odgovor od servera>"+data['poruka']);
+                        }
+                    });
+                    }
                     break;
                 default:
                     console.log("default");
